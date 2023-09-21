@@ -88,7 +88,7 @@ def explore_2(df, df2, df3, features, target_variable):
 
 def explore(df, df2, df3, f1, f2, target_variable):
 
-    # 1a. Explore the Interaction between Independent Variables and the Target Variable
+    # 1a. Explore the Interaction between Independent Variable 1 and the Target Variable
 
     # Visualizations (Scatter Plot)
     plt.figure(figsize=(6, 4))
@@ -99,8 +99,12 @@ def explore(df, df2, df3, f1, f2, target_variable):
     # Statistical Testing (Pearson's Correlation)
     correlation_coefficient, p_value = pearsonr(df[f1], df[target_variable])
     print(f"Pearson's Correlation Coefficient between {f1} and {target_variable}: {correlation_coefficient}, P-Value: {p_value}")
+    if p_value < 0.05:
+        print("Null Hypothesis (H0): We reject the null hypothesis.")
+    else:
+        print("Null Hypothesis (H0): We fail to reject the null hypothesis.")
 
-    # 1b. Explore the Interaction between Independent Variables and the Target Variable
+    # 1b. Explore the Interaction between Independent Variable 2 and the Target Variable
 
     # Visualizations (Scatter Plot)
     plt.figure(figsize=(6, 4))
@@ -111,6 +115,10 @@ def explore(df, df2, df3, f1, f2, target_variable):
     # Statistical Testing (Pearson's Correlation)
     correlation_coefficient, p_value = pearsonr(df[f2], df[target_variable])
     print(f"Pearson's Correlation Coefficient between {f2} and {target_variable}: {correlation_coefficient}, P-Value: {p_value}")
+    if p_value < 0.05:
+        print("Null Hypothesis (H0): We reject the null hypothesis.")
+    else:
+        print("Null Hypothesis (H0): We fail to reject the null hypothesis.")
     
     # 2. Explore Clustering with the Specified Feature Combination
 
@@ -142,6 +150,10 @@ def explore(df, df2, df3, f1, f2, target_variable):
     # Statistical Testing (ANOVA)
     f_stat, p_value = f_oneway(df[df['cluster'] == 0][target_variable], df[df['cluster'] == 1][target_variable], df[df['cluster'] == 2][target_variable])
     print(f"F-Statistic for clusters based on {f1} and {f2}: {f_stat}, P-Value: {p_value}")
+    if p_value < 0.05:
+        print("Null Hypothesis (H0): We reject the null hypothesis.")
+    else:
+        print("Null Hypothesis (H0): We fail to reject the null hypothesis.")
 
     # 4. Compare Clusters to the Target Variable
 
@@ -155,6 +167,10 @@ def explore(df, df2, df3, f1, f2, target_variable):
     cluster_groups = [df[df['cluster'] == i][target_variable] for i in range(3)]
     f_stat, p_value = f_oneway(*cluster_groups)
     print(f"F-Statistic for cluster vs. {target_variable}: {f_stat}, P-Value: {p_value}")
+    if p_value < 0.05:
+        print("Null Hypothesis (H0): We reject the null hypothesis.")
+    else:
+        print("Null Hypothesis (H0): We fail to reject the null hypothesis.")
 
 
 def explore2(df, df2, df3, f1, f2, target_variable):
@@ -170,7 +186,12 @@ def explore2(df, df2, df3, f1, f2, target_variable):
     # Statistical Testing (Pearson's Correlation)
     correlation_coefficient, p_value = pearsonr(df[f1], df[target_variable])
     print(f"Pearson's Correlation Coefficient between {f1} and {target_variable}: {correlation_coefficient}, P-Value: {p_value}")
-
+    if p_value < 0.05:
+        print("Null Hypothesis (H0): We reject the null hypothesis.")
+    else:
+        print("Null Hypothesis (H0): We fail to reject the null hypothesis.")
+    
+    
     # 1b. Explore the Interaction between Independent Variables and the Target Variable
 
     # Visualizations (Scatter Plot)
@@ -183,6 +204,11 @@ def explore2(df, df2, df3, f1, f2, target_variable):
     # Statistical Testing (Pearson's Correlation)
     correlation_coefficient, p_value = pearsonr(df[f2], df[target_variable])
     print(f"Pearson's Correlation Coefficient between {f2} and {target_variable}: {correlation_coefficient}, P-Value: {p_value}")
+    if p_value < 0.05:
+        print("Null Hypothesis (H0): We reject the null hypothesis.")
+    else:
+        print("Null Hypothesis (H0): We fail to reject the null hypothesis.")
+
     
     # 2. Explore Clustering with the Specified Feature Combination
 
@@ -214,7 +240,12 @@ def explore2(df, df2, df3, f1, f2, target_variable):
     # Statistical Testing (ANOVA)
     f_stat, p_value = f_oneway(df[df['cluster'] == 0][target_variable], df[df['cluster'] == 1][target_variable], df[df['cluster'] == 2][target_variable])
     print(f"F-Statistic for clusters based on {f1} and {f2}: {f_stat}, P-Value: {p_value}")
+    if p_value < 0.05:
+        print("Null Hypothesis (H0): We reject the null hypothesis.")
+    else:
+        print("Null Hypothesis (H0): We fail to reject the null hypothesis.")
 
+    
     # 4. Compare Clusters to the Target Variable
 
     # Visualize cluster distribution with target variable (Box Plot)
@@ -227,6 +258,11 @@ def explore2(df, df2, df3, f1, f2, target_variable):
     cluster_groups = [df[df['cluster'] == i][target_variable] for i in range(3)]
     f_stat, p_value = f_oneway(*cluster_groups)
     print(f"F-Statistic for cluster vs. {target_variable}: {f_stat}, P-Value: {p_value}")
+    if p_value < 0.05:
+        print("Null Hypothesis (H0): We reject the null hypothesis.")
+    else:
+        print("Null Hypothesis (H0): We fail to reject the null hypothesis.")
+
 
 
 

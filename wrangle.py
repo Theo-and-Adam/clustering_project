@@ -1,4 +1,9 @@
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+from sklearn.decomposition import PCA
+from IPython.display import clear_output
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler, QuantileTransformer
 
@@ -60,6 +65,28 @@ def xy_split(df):
 
 
 
+def remove_outliers(df, k=1.5):
+    '''
+    remove_outliers will calculate the upper and lower fence
+    based on the inner quartile range of each numerical column
+    and remove rows with values outside of these fences.
+    '''
+    num_df = df.select_dtypes('number')
+    
+    for col in num_df.columns:
+        q3 = num_df[col].quantile(0.75)
+        q1 = num_df[col].quantile(0.25)
+        iqr = q3 - q1
+        upper_bound = q3 + (k * iqr)
+        lower_bound = q1 - (k * iqr)
+        
+        # Remove rows with values outside of the fences
+        df = df[(df[col] >= lower_bound) & (df[col] <= upper_bound)]
+    
+    return df
+
+
+
 def scaled_data(train, val, test, scaler_type='standard'):
     """
     Scale numerical features in train, val, and test datasets using various scaling techniques.
@@ -85,6 +112,10 @@ def scaled_data(train, val, test, scaler_type='standard'):
     else:
         raise ValueError("Invalid scaler_type. Choose from 'standard', 'minmax', 'robust', 'quantile'.")
 
+    train = remove_outliers(train)
+    val = remove_outliers(val)
+    test = remove_outliers(test)
+
     # Exclude 'quality' from features to scale
     features_to_scale = train.columns.difference(['quality', 'cluster'])
     
@@ -105,8 +136,8 @@ def model_df():
             'RandomForestRegressor with Polynomial Features',
             'XGBRegressor with Polynomial Features'
         ],
-        'Train RMSE': [0.74, 0.47, 0.72, 0.46, 0.34],
-        'Validate RMSE': [0.7, 0.62, 0.69, 0.62, 0.61]
+        'Train RMSE': [0.65, 0.21, 0.63, 0.21, 0.11],
+        'Validate RMSE': [0.65, 0.54, 0.66, 0.55, 0.56]
     }
     
     df = pd.DataFrame(data)
@@ -145,3 +176,53 @@ def get_fences(df, col, k=1.5) -> (float, float):
     upper_bound = q3 + (k * iqr)
     lower_bound = q1 - (k * iqr)
     return lower_bound, upper_bound
+
+
+def cluster_plot(df):
+
+    def random_centroids(data, k=3):
+        centroids = []
+        for i in range(k):
+            centroid = data.apply(lambda x: float(x.sample()))
+            centroids.append(centroid)
+        return pd.concat(centroids, axis =1)
+          #this wil define the cluster number
+        #get labels
+        #we can put this in a function
+    def get_labels(df, centroids):
+        distances = centroids.apply(lambda x: np.sqrt(((df -x)**2).sum(axis=1)))
+        return distances.idxmin(axis=1)
+        labels = get_labels(df, centroids)
+        labels.value_counts()
+        return labels
+    
+    #new centroids
+    def new_centroids(data, label, k):
+        return data.groupby(labels).apply(lambda x: np.exp(np.log(x).mean())).T
+    
+    #plot cluster
+    def plot_clusters(data, labels, centroids, iteration):
+        pca = PCA(n_components=2)
+        data_2d = pca.fit_transform(data)
+        centroids_2d = pca.transform(centroids.T)
+        clear_output(wait=True)
+        plt.title(f'Iteration {iteration}')
+        # Plot data points with labels
+        plt.scatter(x=data_2d[:, 0], y=data_2d[:, 1], c=labels, cmap='viridis')
+        # Plot centroids as white squares
+        plt.scatter(x=centroids_2d[:, 0], y=centroids_2d[:, 1], c='white', marker='s', s=100)
+        plt.show()
+    
+    #write Kmeanalgorithm
+    # write the body of Kmean algorithm
+    max_iterations=100  #number of times the algorithm will iterate unless the cluster stop first
+    k=5
+    centroids=random_centroids(df, k)
+    old_centroids=pd.DataFrame()
+    iteration=1
+    while iteration < max_iterations and not centroids.equals(old_centroids):
+        old_centroids = centroids
+        labels = get_labels(df, centroids)
+        centroids = new_centroids(df, labels, k)
+        plot_clusters(df, labels, centroids, iteration)
+        iteration += 1
