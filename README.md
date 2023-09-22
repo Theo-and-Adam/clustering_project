@@ -1,5 +1,10 @@
 # Wine Quality Prediction and Clustering Analysis
 
+
+
+![image](https://github.com/Theo-and-Adam/clustering_project/assets/118470135/91e36d30-5bb6-42ad-aa2b-12d155ecf749)
+
+
 ## Project Overview
 The Wine Quality Prediction and Clustering Analysis project is a data science consultancy endeavor commissioned by the CodeUP Institute. The objective of this project is to predict the quality of red and white wine while incorporating unsupervised learning techniques, particularly clustering. We will work with a comprehensive dataset containing information about different wines and their quality ratings. Our primary focus will be on using clustering to gain insights into the data and exploring how clustering can impact the performance of machine learning models in predicting wine quality.
 
@@ -12,21 +17,22 @@ The Wine Quality Prediction and Clustering Analysis project is a data science co
 
 
 ## Project Dictionary
-| Variable             | Description                                      |
-| -------------------- | ------------------------------------------------ |
-| fixed_acidity        | The fixed acidity of the wine.                   |
-| volatile_acidity     | The volatile acidity of the wine.                |
-| citric_acid          | The citric acid content in the wine.             |
-| residual_sugar       | The residual sugar content in the wine.          |
-| chlorides            | The chloride content in the wine.                |
-| free_sulfur_dioxide  | The amount of free sulfur dioxide in the wine.   |
-| total_sulfur_dioxide | The total sulfur dioxide content in the wine.    |
-| density              | The density of the wine.                         |
-| pH                   | The pH level of the wine.                        |
-| sulphates            | The amount of sulphates in the wine.             |
-| alcohol              | The alcohol content in the wine.                 |
-| quality              | The quality rating of the wine (target variable).|
-| wine_type            | The type of wine (e.g., red or white).           |
+| Variable             | Description                                      | Data Type       |
+| -------------------- | ------------------------------------------------ | --------------- |
+| fixed_acidity        | The fixed acidity of the wine.                   | Numeric (float) |
+| volatile_acidity     | The volatile acidity of the wine.                | Numeric (float) |
+| citric_acid          | The citric acid content in the wine.             | Numeric (float) |
+| residual_sugar       | The residual sugar content in the wine.          | Numeric (float) |
+| chlorides            | The chloride content in the wine.                | Numeric (float) |
+| free_sulfur_dioxide  | The amount of free sulfur dioxide in the wine.   | Numeric (float) |
+| total_sulfur_dioxide | The total sulfur dioxide content in the wine.    | Numeric (float) |
+| density              | The density of the wine.                         | Numeric (float) |
+| pH                   | The pH level of the wine.                        | Numeric (float) |
+| sulphates            | The amount of sulphates in the wine.             | Numeric (float) |
+| alcohol              | The alcohol content in the wine.                 | Numeric (float) |
+| quality              | The quality rating of the wine (target variable).| Integer         |
+| wine_type            | The type of wine (e.g., red or white).           | Categorical     |
+
 
 
 ## Project Plan
@@ -54,6 +60,13 @@ The Wine Quality Prediction and Clustering Analysis project is a data science co
 1. Developed a slide deck for the presentation.
 2. Include an introduction, executive summary, findings, conclusion, and recommendation in the presentation.
 3. 5-minute time limit.
+
+### Steps to Reproduce
+Acquire wine quality data from Data.World.
+Merge red and white wine CSVs, adding a color identifier.
+Clone repository in the local
+Execute notebook with adjust hyperparameters
+
 
 ## Conclusion
 The Wine Quality Prediction and Clustering Analysis project aims to predict wine quality while utilizing unsupervised learning techniques, with a focus on clustering for data exploration. By adhering to a structured plan and implementing best practices, we have analyzed the finding to proven that the increase in alcohol and free Sulfure Dioxide while decreasing the Chlorides will increase the wine quality.
