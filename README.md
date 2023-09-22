@@ -2,7 +2,7 @@
 
 
 
-![Alt Text]([URL](https://labelyourdata.com/img/article-illustrations/ml_essential_tool.jpg))
+![Alt Text](https://labelyourdata.com/img/article-illustrations/ml_essential_tool.jpg)
 
 
 ## Project Overview
