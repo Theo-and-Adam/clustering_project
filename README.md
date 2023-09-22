@@ -2,7 +2,7 @@
 
 
 
-![image](https://github.com/Theo-and-Adam/clustering_project/assets/118470135/91e36d30-5bb6-42ad-aa2b-12d155ecf749)
+![Alt Text]([URL](https://labelyourdata.com/img/article-illustrations/ml_essential_tool.jpg))
 
 
 ## Project Overview
